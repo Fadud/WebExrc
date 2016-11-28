@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    height: 100%;
+    font-size: 12px;
+    font-family: sans-serif;
+}
+
+.verticlMid {
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+}
+
+#header {
+    height: 35px;
+    line-height: 30px;
+    background-color: #0a64eb;
+    font-family: Arial;
+    text-shadow: 2px 1px black;
+}
+
+#header a {
+    color: white;
+}
+
+.titleSec {
+    display: inline-block;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#logoContainer {
+    width: 2%;
+}
+
+#logoPic {
+    width: 100%;
+}
+
+#logoText {
+    font-size: 17px;
+}
+
+.titleSec:hover {
+    background-color: #77a1e0;
+}
+
+#container {
+    width: 75%;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.rightHeaders {
+    float: right;
+    margin-right: 15px;
+}
+
+.leftHeaders {
+    float: left;
+}

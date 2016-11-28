@@ -1,0 +1,14 @@
+#tweetInput {
+    height: 60px;
+    width: 70%;
+    margin-bottom: 15px;
+}
+
+.tweetContainer {
+    margin-top: 5px;
+}
+
+.tweetContent {
+    display: inline-block;
+    vertical-align: top;
+}
