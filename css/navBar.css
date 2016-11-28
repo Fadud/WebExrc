@@ -17,7 +17,7 @@ a {
     height: 35px;
     line-height: 30px;
     background-color: #0a64eb;
-    font-family: Arial;
+    font-family: Arial, sans-serif;
     text-shadow: 2px 1px black;
 }
 
