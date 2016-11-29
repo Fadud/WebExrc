@@ -1,5 +1,17 @@
+#usersContainer {
+    padding-top: 15px;
+    padding-left: 30px;
+}
+
 .followersCell {
     height: 170px;
+    animation: extendsUser 0.5s;
+}
+
+/* Standard syntax */
+@keyframes extendsUser {
+    0%   {margin-bottom: 0px}
+    100% {margin-bottom: 20px}
 }
 
 #followersThumb {
