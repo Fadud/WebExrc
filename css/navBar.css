@@ -5,19 +5,19 @@ body {
 
 #header {
     background-color: #0a64eb;
-    border-radius: 0px;
+    border-radius: 0;
 }
 
 #header a {
-    color: white;
+    color: #fff;
 }
 
 #header .container {
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 #header a:hover {
-    color: lightgray;
+    color: #d3d3d3;
     background-color: transparent;
 }
 
