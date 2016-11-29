@@ -1,16 +1,6 @@
 body {
-    margin: 0;
-    height: 100%;
     font-size: 14px;
     font-family: sans-serif;
-}
-
-.verticlMid {
-    vertical-align: middle;
-}
-
-a {
-    text-decoration: none;
 }
 
 #header {
@@ -18,12 +8,12 @@ a {
     border-radius: 0px;
 }
 
-#header .container {
-    padding-left: 0px;
-}
-
 #header a {
     color: white;
+}
+
+#header .container {
+    padding-left: 0px;
 }
 
 #header a:hover {
