@@ -1,41 +1,12 @@
-#usersSection {
-    width: 67%;
-    display: inline-block;
+.followersCell {
+    height: 170px;
 }
 
-.userContainer {
-    margin: 3px;
-    display: inline-block;
-    padding: 10px;
+#followersThumb {
+    border: 5px solid #ddd;
+    padding: 0px 20px;
 }
 
-.userContainer:hover {
-    border-color: lightgray;
-}
-
-.normalUser {
-    float: left;
-    width: 15%;
-}
-
-.grayBorder {
-    border: 3px solid #e6e6e6;
-    border-radius: 5px;
-}
-
-#followersSection {
-    float: right;
-    width: 20%;
-    border: 5px solid #e6e6e6;
-    border-radius: 5px;
-}
-
-#followersContainer .userContainer {
-    padding-top: 3px;
-    padding-bottom: 3px;
-    width: 42%;
-}
-
-.userContainer button {
-    width: 50%;
+#followersCol {
+    padding-right: 0px;
 }
