@@ -21,3 +21,11 @@
 #followersCol {
     padding-right: 0px;
 }
+
+.follow {
+    background-color: green;
+}
+
+.unfollow {
+    background-color: red;
+}

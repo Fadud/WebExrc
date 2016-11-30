@@ -5,8 +5,9 @@
     <title>OfekTwitter</title>
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/bootstrap-theme.css">
-
     <link rel="stylesheet" href="css/navBar.css">
+
+    <script src="js/index.js"></script>
 </head>
 <body>
     <nav id="header" class="navbar">
@@ -37,62 +38,26 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <textarea class="form-control" rows="3" placeholder="tweet text..."></textarea>
-                <button class="btn btn-primary pull-right">publish</button>
+                <textarea id="tweetInput" class="form-control" rows="3" placeholder="tweet text..."></textarea>
+                <button class="btn btn-primary pull-right" onclick="publishTweet()">publish</button>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <div class="media">
-                    <div class="media-left">
-                        <img src="images/useravatar.png" />
-                    </div>
-                    <div class="media-body">
-                        <b>James Bond says:</b>
-                        <br />
-                        Blabla bla...
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <img src="images/useravatar.png" />
-                    </div>
-                    <div class="media-body">
-                        <b>James Bond says:</b>
-                        <br />
-                        Bond, James bond
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <img src="images/useravatar.png" />
-                    </div>
-                    <div class="media-body">
-                        <b>Albert Einstein says:</b>
-                        <br />
-                        E = mc^2
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <img src="images/useravatar.png" />
-                    </div>
-                    <div class="media-body">
-                        <b>Bill Gates says:</b>
-                        <br />
-                        I think 64 bytes should be enough for everyone
-                    </div>
-                </div>
-                <div class="media">
-                    <div class="media-left">
-                        <img src="images/useravatar.png" />
-                    </div>
-                    <div class="media-body">
-                        <b>Frodo says:</b>
-                        <br />
-                        My Precious.
-                    </div>
-                </div>
+            <div class="col-lg-12" id="tweetsContainer">
+
+            </div>
+        </div>
+    </div>
+
+    <div id="tweetTemplate" class="hidden">
+        <div class="media">
+            <div class="media-left">
+                <img src="images/useravatar.png" />
+            </div>
+            <div class="media-body">
+                <b>#name says:</b>
+                <br />
+                #text
             </div>
         </div>
     </div>
