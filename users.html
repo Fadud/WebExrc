@@ -40,10 +40,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-4">
-                <input id="filterInput" class="form-control" type="text" placeholder="filter by user name">
+                <input id="filterInput" class="form-control" type="text" placeholder="filter by user name" onkeyup="changeFilterText()">
             </div>
             <div class="col-lg-8">
-                <button class="btn btn-primary" onclick="changeFilterText()">OK</button>
+                <button class="btn btn-primary">OK</button>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
     </div>
 
     <div id="userTemplate" class="hidden">
-        <div class="col-lg-2">
+        <div class="col-lg-2" id="#divID">
             <div class="thumbnail followersCell">
                 <img src="images/useravatar.png" />
                 <div class="caption" align="center">
@@ -82,7 +82,7 @@
         </div>
     </div>
     <div id="followTemplate" class="hidden">
-        <div class="thumbnail followersCell">
+        <div class="thumbnail followersCell" id="#divID">
             <img src="images/useravatar.png" />
             <div class="caption" align="center">
                 <p>

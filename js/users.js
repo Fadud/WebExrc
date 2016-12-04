@@ -1,4 +1,4 @@
-var users = {
+/*var users = {
     "Marty McFly" : {
         follow : false
     },
@@ -32,7 +32,53 @@ var users = {
     "Henry the 8th" : {
         follow : true
     }
-};
+};*/
+var users = [
+    {
+        username: "Marty McFly",
+        follow : false
+    },
+    {
+        username: "Janis Joplin",
+        follow : false
+    },
+    {
+        username: "Albert Einstein",
+        follow : false
+    },
+    {
+        username: "Genghis Khan",
+        follow : false
+    },
+    {
+        username: "Janis Joplin",
+        follow : false
+    },
+    {
+        username: "Dracula",
+        follow : true
+    },
+    {
+        username: "Forest Gump",
+        follow : false
+    },
+    {
+        username: "Caligula",
+        follow : false
+    },
+    {
+        username: "Winnie the Pooh",
+        follow : false
+    },
+    {
+        username: "Obama",
+        follow : false
+    },
+    {
+        username: "Henry the 8th",
+        follow : true
+    }
+];
 var filterText = "";
 
 window.addEventListener('load', loadUsers, false);
@@ -46,32 +92,57 @@ function loadUsers() {
     usersContainer.innerHTML = "";
     followContainer.innerHTML = "";
 
-    for(user in users) {
-        var filter = new RegExp("");
-        if(filter.test(user))
-            addUserToHTML(usersContainer, userTemplate, user);
-        if (users[user].follow)
-            addUserToHTML(followContainer, followTemplate, user);
+    for(user of users) {
+        if(user.username.includes(filterText))
+            addUserToHTML(usersContainer, userTemplate, user, "user");
+        if (user.follow)
+            addUserToHTML(followContainer, followTemplate, user, "follower");
     }
 }
 
-function addUserToHTML(container, tamplate, userName) {
+function addUserToHTML(container, tamplate, user, type) {
     var htmlText = tamplate.innerHTML;
-    htmlText = htmlText.replace("#name", userName);
+    htmlText = htmlText.replace("#divID", user.username + "_" + type);
+    htmlText = htmlText.replace("#name", user.username);
 
-    htmlText = htmlText.replace("#btnText", (users[userName].follow) ? "unfollow" : "follow");
-    htmlText = htmlText.replace("#btnClass", (users[userName].follow) ? "btn-danger" : "btn-success");
-    htmlText = htmlText.replace("#id", userName);
+    htmlText = htmlText.replace("#btnText", (user.follow) ? "unfollow" : "follow");
+    htmlText = htmlText.replace("#btnClass", (user.follow) ? "btn-danger" : "btn-success");
+    htmlText = htmlText.replace("#id", user.username);
 
     container.innerHTML += htmlText;
 }
 
-function clickUser(user) {
-    users[user].follow = !(users[user].follow);
+function clickUser(userName) {
+    users.filter(function(user){
+        return user.username == userName;
+    }).map(function (user) {
+        user.follow = !user.follow;
+    });
+    //users[user].follow = !(users[user].follow);
     loadUsers();
 }
 
 function changeFilterText() {
     filterText = document.getElementById("filterInput").value;
-    alert(filterText);
+    filterUsers();
+}
+
+function filterUsers() {
+    for(user of users) {
+        var div = document.getElementById(user.username+"_user");
+        if(user.username.includes(filterText)) {
+            div.classList.remove("hidden");
+        } else {
+            div.classList.add("hidden");
+        }
+    }
+    /*users.forEach(function(user) {
+        document.getElementById(user.username+"_user").classList.remove("hidden");
+    });*/
+/*
+    users.filter(function(user) {
+        return !user.username.includes(filterText);
+    }).forEach(function(user) {
+        document.getElementById(user.username+"_user").classList.add("hidden");
+    });*/
 }

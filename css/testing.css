@@ -1,0 +1,18 @@
+.failed {
+    background-color: #ef4e4e;
+}
+
+.passed {
+    background-color: #8fe68f;
+}
+
+.testGroup {
+    padding: 5px;
+    margin: 5px 0;
+}
+
+.assert {
+    border: 1px solid black;
+    margin: 3px;
+    padding: 3px;
+}

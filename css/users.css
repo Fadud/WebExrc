@@ -5,7 +5,6 @@
 
 .followersCell {
     height: 170px;
-    animation: extendsUser 0.5s;
 }
 
 @keyframes extendsUser {
