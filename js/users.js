@@ -40,7 +40,6 @@ var users = [
         follow : true
     }
 ];
-
 window.addEventListener('load', loadUsers, false);
 
 function loadUsers() {
@@ -62,6 +61,8 @@ function loadUsers() {
 function addUserToHTML(container, tamplate, user, type) {
     var newObject = tamplate.clone();
     newObject.setAttribute("id", getUserID(user) + "_" + type);
+    newObject.setAttribute("data-name", user.username);
+    newObject.addClass(type);
     newObject.removeClass("hidden");
     newObject.removeClass(type + "Template");
     newObject.replace("#name", user.username);
@@ -84,15 +85,11 @@ function clickUser(userID) {
 function changeFilterText() {
     var filterText = $("#filterInput").value();
 
-    users.forEach(function(user) {
-        $("#"+getUserID(user)+"_user").removeClass("hidden");
-    });
+    $(".user").removeClass("hidden");
 
-    users.filter(function(user) {
-        return !user.username.includes(filterText);
-    }).forEach(function(user) {
-        $("#"+getUserID(user)+"_user").addClass("hidden");
-    });
+    $(".user").filter(function(obj) {
+       return !obj.getAttribute("data-name").includes(filterText);
+    }).addClass("hidden");
 }
 
 function getUserID(user) {

@@ -6,18 +6,25 @@ function $(selector) {
     if(selector == undefined || selector == null || selector == "")
         return;
 
-    var result = [document];
-    var selectors = selector.split(' ');
+    function addCollection(collection, colToAdd) {
+        for(element of colToAdd) {
+            if(collection.indexOf(element) == -1)
+                collection.push(element);
+        }
+    }
+
+    let result = [document];
+    let selectors = selector.split(' ');
     for(currSelector of selectors) {
-        var token = currSelector.charAt(0);
-        var name = currSelector.substring(1);
+        let token = currSelector.charAt(0);
+        let name = currSelector.substring(1);
 
         if(token == "#") {
             result = [document.getElementById(name)];
         } else {
-            var newResult = [];
+            let newResult = [];
             for(currElement of result) {
-                var newElements;
+                let newElements;
                 if(token == ".")
                     newElements = currElement.getElementsByClassName(name);
                 else
@@ -30,12 +37,6 @@ function $(selector) {
     }
 
     return new OfekQuery(result);
-}
-
-function addCollection(collection, colToAdd) {
-    for(element of colToAdd) {
-        collection.push(element);
-    }
 }
 
 OfekQuery.prototype.addClass = function(className) {
@@ -57,7 +58,7 @@ OfekQuery.prototype.each = function(func) {
 };
 
 OfekQuery.prototype.map = function(func) {
-    var results = [];
+    let results = [];
     for(object of this.objects) {
         results.push(func(object));
     }
@@ -127,17 +128,17 @@ OfekQuery.prototype.get = function(index) {
 
 OfekQuery.prototype.value = function() {
     if (arguments.length > 0) {
-        var val = arguments[0];
+        let val = arguments[0];
         this.each(function (obj) {
             obj.value = val;
         });
     } else {
-        var results = this.map(function (obj) {
+        let results = this.map(function (obj) {
             return obj.value;
         });
 
         if (results.length == 1)
-            results = results[0]
+            results = results[0];
 
         return results;
     }
@@ -145,12 +146,12 @@ OfekQuery.prototype.value = function() {
 
 OfekQuery.prototype.replace = function(replace, value) {
     this.each(function(obj) {
-        obj.innerHTML = obj.innerHTML.replace(replace, value);
+        obj.innerHTML = obj.innerHTML.split(replace).join(value);
     });
 };
 
 OfekQuery.prototype.clone = function() {
-    var newObjects = this.map(function(obj) {
+    let newObjects = this.map(function(obj) {
         return obj.cloneNode(true);
     });
 
