@@ -1,38 +1,3 @@
-/*var users = {
-    "Marty McFly" : {
-        follow : false
-    },
-    "Janis Joplin" : {
-        follow : false
-    },
-    "Albert Einstein" : {
-        follow : false
-    },
-    "Genghis Khan" : {
-        follow : false
-    },
-    "Janis Joplin" : {
-        follow : false
-    },
-    "Dracula" : {
-        follow : true
-    },
-    "Forest Gump" : {
-        follow : false
-    },
-    "Caligula" : {
-        follow : false
-    },
-    "Winnie the Pooh" : {
-        follow : false
-    },
-    "Obama" : {
-        follow : false
-    },
-    "Henry the 8th" : {
-        follow : true
-    }
-};*/
 var users = [
     {
         username: "Marty McFly",
@@ -48,10 +13,6 @@ var users = [
     },
     {
         username: "Genghis Khan",
-        follow : false
-    },
-    {
-        username: "Janis Joplin",
         follow : false
     },
     {
@@ -79,70 +40,65 @@ var users = [
         follow : true
     }
 ];
-var filterText = "";
 
 window.addEventListener('load', loadUsers, false);
 
 function loadUsers() {
-    var usersContainer = document.getElementById("normalUsersContainer");
-    var followContainer = document.getElementById("followUsersContainer");
-    var userTemplate = document.getElementById("userTemplate");
-    var followTemplate = document.getElementById("followTemplate");
+    var usersContainer = $("#normalUsersContainer");
+    var followContainer = $("#followUsersContainer");
+    var userTemplate = $(".userTemplate");
+    var followTemplate = $(".followerTemplate");
 
-    usersContainer.innerHTML = "";
-    followContainer.innerHTML = "";
+    usersContainer.empty();
+    followContainer.empty();
 
     for(user of users) {
-        if(user.username.includes(filterText))
-            addUserToHTML(usersContainer, userTemplate, user, "user");
+        addUserToHTML(usersContainer, userTemplate, user, "user");
         if (user.follow)
             addUserToHTML(followContainer, followTemplate, user, "follower");
     }
 }
 
 function addUserToHTML(container, tamplate, user, type) {
-    var htmlText = tamplate.innerHTML;
-    htmlText = htmlText.replace("#divID", user.username + "_" + type);
-    htmlText = htmlText.replace("#name", user.username);
+    var newObject = tamplate.clone();
+    newObject.setAttribute("id", getUserID(user) + "_" + type);
+    newObject.removeClass("hidden");
+    newObject.removeClass(type + "Template");
+    newObject.replace("#name", user.username);
+    newObject.replace("#btnText", (user.follow) ? "unfollow" : "follow");
+    newObject.replace("#btnClass", (user.follow) ? "btn-danger" : "btn-success");
+    newObject.replace("#id", getUserID(user));
 
-    htmlText = htmlText.replace("#btnText", (user.follow) ? "unfollow" : "follow");
-    htmlText = htmlText.replace("#btnClass", (user.follow) ? "btn-danger" : "btn-success");
-    htmlText = htmlText.replace("#id", user.username);
-
-    container.innerHTML += htmlText;
+    container.appendChild(newObject.get(0));
 }
 
-function clickUser(userName) {
+function clickUser(userID) {
     users.filter(function(user){
-        return user.username == userName;
+        return user.username == getUserName(userID);
     }).map(function (user) {
         user.follow = !user.follow;
     });
-    //users[user].follow = !(users[user].follow);
     loadUsers();
 }
 
 function changeFilterText() {
-    filterText = document.getElementById("filterInput").value;
-    filterUsers();
-}
+    var filterText = $("#filterInput").value();
 
-function filterUsers() {
-    for(user of users) {
-        var div = document.getElementById(user.username+"_user");
-        if(user.username.includes(filterText)) {
-            div.classList.remove("hidden");
-        } else {
-            div.classList.add("hidden");
-        }
-    }
-    /*users.forEach(function(user) {
-        document.getElementById(user.username+"_user").classList.remove("hidden");
-    });*/
-/*
+    users.forEach(function(user) {
+        $("#"+getUserID(user)+"_user").removeClass("hidden");
+    });
+
     users.filter(function(user) {
         return !user.username.includes(filterText);
     }).forEach(function(user) {
-        document.getElementById(user.username+"_user").classList.add("hidden");
-    });*/
+        $("#"+getUserID(user)+"_user").addClass("hidden");
+    });
+}
+
+function getUserID(user) {
+    return user.username.split(' ').join('_');
+}
+
+function getUserName(userID) {
+    return userID.split('_').join(' ');
 }

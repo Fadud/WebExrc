@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>OfekTwitter</title>
@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/navBar.css">
     <link rel="stylesheet" href="css/testing.css">
 
+    <script src="js/OfekQuery.js"></script>
     <script src="js/OfekTestFramework.js"></script>
     <script src="js/index.js"></script>
 </head>
@@ -51,16 +52,14 @@
         </div>
     </div>
 
-    <div id="tweetTemplate" class="hidden">
-        <div class="media">
-            <div class="media-left">
-                <img src="images/useravatar.png" />
-            </div>
-            <div class="media-body">
-                <b>#name says:</b>
-                <br />
-                #text
-            </div>
+    <div class="media hidden tweetTemplate">
+        <div class="media-left">
+            <img src="images/useravatar.png" />
+        </div>
+        <div class="media-body">
+            <b>#name says:</b>
+            <br />
+            #text
         </div>
     </div>
 </body>

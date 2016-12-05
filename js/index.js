@@ -7,10 +7,7 @@ var tweets = [
 window.addEventListener('load', onPageLoad, false);
 
 function loadTweets() {
-    var tweetsContainer = document.getElementById("tweetsContainer");
-    var tweetTemplate = document.getElementById("tweetTemplate");
-
-    tweetsContainer.innerHTML = "";
+    $("#tweetsContainer").empty();
 
     for(currTweet in tweets) {
         addTweetToHTML(tweets[currTweet]);
@@ -18,28 +15,29 @@ function loadTweets() {
 }
 
 function addTweetToHTML(tweet) {
-    var htmlText = tweetTemplate.innerHTML;
-    htmlText = htmlText.replace("#name", tweet.username);
-    htmlText = htmlText.replace("#text", tweet.text);
-    tweetsContainer.innerHTML += htmlText;
+    var newTweetElem = $(".tweetTemplate").clone();
+    newTweetElem.removeClass("hidden");
+    newTweetElem.removeClass("tweetTemplate");
+    newTweetElem.replace("#name", tweet.username);
+    newTweetElem.replace("#text", tweet.text);
+    $("#tweetsContainer").appendChild(newTweetElem.get(0));
 }
 
 function publishTweet() {
-    var tweetText = document.getElementById("tweetInput").value;
+    var tweetText = $("#tweetInput").value();
     if(tweetText != "") {
-        tweetText = tweetText.replace(/[<]/g,'&lt').replace(/[>]/g, '&gt')
+        tweetText = tweetText.replace(/[<]/g,'&lt').replace(/[>]/g, '&gt');
         var newTweet = {};
         newTweet["username"] = "Amit";
         newTweet["text"] = tweetText;
         tweets.push(newTweet);
-        document.getElementById("tweetInput").value = "";
+        $("#tweetInput").value("");
         addTweetToHTML(newTweet);
     }
 }
 
 function testPublish() {
-    var input = document.getElementById("tweetInput");
-    input.value = "testing";
+    $("#tweetInput").value("testing");
     publishTweet();
     var newTweets = tweets.filter(function(item){return item.text != "testing";});
     var result = newTweets.length != tweets.length;
@@ -48,7 +46,7 @@ function testPublish() {
 }
 
 function testPublishEmpty() {
-    var input = document.getElementById("tweetInput");
+    $("#tweetInput").value("");
     var beforeTweetsCount = tweets.length;
     publishTweet();
     var result = beforeTweetsCount == tweets.length;
@@ -57,6 +55,9 @@ function testPublishEmpty() {
 }
 
 function onPageLoad() {
+    //var tweetsContainer = $("#tweetsContainer");
+    //var tweetTemplate = $("#tweetTemplate");
+
     test_group("Publish tweets", function() {
         assert(testPublish(), "Add tweet");
         assert(testPublishEmpty(), "Add empty tweet");

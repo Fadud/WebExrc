@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/users.css">
     <link rel="stylesheet" href="css/navBar.css">
 
+    <script src="js/OfekQuery.js"></script>
     <script src="js/users.js"></script>
 </head>
 <body>
@@ -66,23 +67,8 @@
         </div>
     </div>
 
-    <div id="userTemplate" class="hidden">
-        <div class="col-lg-2" id="#divID">
-            <div class="thumbnail followersCell">
-                <img src="images/useravatar.png" />
-                <div class="caption" align="center">
-                    <p>
-                        <button class="btn #btnClass" onclick="clickUser('#id')">#btnText</button>
-                    </p>
-                    <p>
-                        #name
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="followTemplate" class="hidden">
-        <div class="thumbnail followersCell" id="#divID">
+    <div class="col-lg-2 hidden userTemplate">
+        <div class="thumbnail followersCell">
             <img src="images/useravatar.png" />
             <div class="caption" align="center">
                 <p>
@@ -92,6 +78,18 @@
                     #name
                 </p>
             </div>
+        </div>
+    </div>
+
+    <div class="thumbnail followersCell hidden followerTemplate">
+        <img src="images/useravatar.png" />
+        <div class="caption" align="center">
+            <p>
+                <button class="btn #btnClass" onclick="clickUser('#id')">#btnText</button>
+            </p>
+            <p>
+                #name
+            </p>
         </div>
     </div>
 
