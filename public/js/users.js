@@ -40,7 +40,30 @@ var users = [
         follow : true
     }
 ];
-window.addEventListener('load', loadUsers, false);
+var loggedUserID = "10c06b27-d8ee-4435-9cee-0a2a838ca14a";
+var loggedUser;
+
+window.addEventListener('load', onPageLode, false);
+
+function onPageLode() {
+    axios.get('http://10.103.50.193:8080/users/'+loggedUserID).then(function(response){
+        if(response.status == 200) {
+            loggedUser = response.data[0];
+            loadUsersList();
+        }
+    });
+}
+
+function loadUsersList() {
+    axios.get('http://10.103.50.193:8080/users').then(function(response){
+        if(response.status == 200) {
+            users = response.data.filter(function(user) {
+                return user._id != loggedUser._id;
+            });
+            loadUsers();
+        }
+    });
+};
 
 function loadUsers() {
     var usersContainer = $("#normalUsersContainer");
@@ -52,30 +75,31 @@ function loadUsers() {
     followContainer.empty();
 
     for(user of users) {
-        addUserToHTML(usersContainer, userTemplate, user, "user");
-        if (user.follow)
-            addUserToHTML(followContainer, followTemplate, user, "follower");
+        var isFollowed = loggedUser.following.indexOf(user._id) != -1;
+        addUserToHTML(usersContainer, userTemplate, user, "user", isFollowed);
+        if (isFollowed)
+            addUserToHTML(followContainer, followTemplate, user, "follower", isFollowed);
     }
 }
 
-function addUserToHTML(container, tamplate, user, type) {
+function addUserToHTML(container, tamplate, user, type, isFollowed) {
     var newObject = tamplate.clone();
-    newObject.setAttribute("id", getUserID(user) + "_" + type);
+    newObject.setAttribute("id", user._id + "_" + type);
     newObject.setAttribute("data-name", user.username);
     newObject.addClass(type);
     newObject.removeClass("hidden");
     newObject.removeClass(type + "Template");
     newObject.replace("#name", user.username);
-    newObject.replace("#btnText", (user.follow) ? "unfollow" : "follow");
-    newObject.replace("#btnClass", (user.follow) ? "btn-danger" : "btn-success");
-    newObject.replace("#id", getUserID(user));
+    newObject.replace("#btnText", isFollowed ? "unfollow" : "follow");
+    newObject.replace("#btnClass", isFollowed ? "btn-danger" : "btn-success");
+    newObject.replace("#id", user._id);
 
     container.appendChild(newObject.get(0));
 }
 
 function clickUser(userID) {
     users.filter(function(user){
-        return user.username == getUserName(userID);
+        return user._id == userID;
     }).map(function (user) {
         user.follow = !user.follow;
     });
@@ -90,12 +114,4 @@ function changeFilterText() {
     $(".user").filter(function(obj) {
        return !obj.getAttribute("data-name").includes(filterText);
     }).addClass("hidden");
-}
-
-function getUserID(user) {
-    return user.username.split(' ').join('_');
-}
-
-function getUserName(userID) {
-    return userID.split('_').join(' ');
 }
