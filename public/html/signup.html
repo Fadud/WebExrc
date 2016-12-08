@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>OfekTwitter</title>
+    <title>OfekTwitter | Sign Up</title>
     <link rel="stylesheet" href="../css/bootstrap.css">
     <link rel="stylesheet" href="../css/bootstrap-theme.css">
     <link rel="stylesheet" href="../css/navBar.css">
-    <link rel="stylesheet" href="../css/testing.css">
+    <link rel="stylesheet" href="../css/signup.css">
 
-    <script src="../js/OfekTestFramework.js"></script>
     <script src="../js/OfekQuery.js"></script>
     <script src="../node_modules/axios/dist/axios.js"></script>
-    <script src="../js/usersServerRequests.js"></script>
-    <script src="../js/tweetsServerRequests.js"></script>
-    <script src="../js/index.js"></script>
+    <script src="../js/singupServerRequest.js"></script>
+    <script src="../js/signup.js"></script>
 </head>
 <body>
     <nav id="header" class="navbar">
@@ -43,26 +41,19 @@
 
     <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <textarea id="tweetInput" class="form-control" rows="3" placeholder="tweet text..."></textarea>
-                <button id="publishBtn" class="btn btn-primary pull-right" onclick="publishTweet()">publish</button>
+            <div class="col-md-6">
+                <input id="username" type="text" class="form-control" placeholder="Username">
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12" id="tweetsContainer">
-
+            <div class="col-md-6">
+                <input id="password" type="password" class="form-control" placeholder="Password">
             </div>
         </div>
-    </div>
-
-    <div class="media hidden tweetTemplate">
-        <div class="media-left">
-            <img src="../images/useravatar.png" />
-        </div>
-        <div class="media-body">
-            <b>#name says:</b>
-            <br />
-            #text
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary" onclick="signup()">Sign Up</button>
+            </div>
         </div>
     </div>
 </body>

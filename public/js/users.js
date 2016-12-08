@@ -1,71 +1,28 @@
-var users = [
-    {
-        username: "Marty McFly",
-        follow : false
-    },
-    {
-        username: "Janis Joplin",
-        follow : false
-    },
-    {
-        username: "Albert Einstein",
-        follow : false
-    },
-    {
-        username: "Genghis Khan",
-        follow : false
-    },
-    {
-        username: "Dracula",
-        follow : true
-    },
-    {
-        username: "Forest Gump",
-        follow : false
-    },
-    {
-        username: "Caligula",
-        follow : false
-    },
-    {
-        username: "Winnie the Pooh",
-        follow : false
-    },
-    {
-        username: "Obama",
-        follow : false
-    },
-    {
-        username: "Henry the 8th",
-        follow : true
-    }
-];
-var loggedUserID = "10c06b27-d8ee-4435-9cee-0a2a838ca14a";
+var users = [];
 var loggedUser;
 
 window.addEventListener('load', onPageLode, false);
 
 function onPageLode() {
-    axios.get('http://10.103.50.193:8080/users/'+loggedUserID).then(function(response){
-        if(response.status == 200) {
-            loggedUser = response.data[0];
+    getLoggedUser().then(function(result) {
+        loggedUser = result;
+        if(loggedUser != undefined && loggedUser != "") {
             loadUsersList();
         }
     });
 }
 
 function loadUsersList() {
-    axios.get('http://10.103.50.193:8080/users').then(function(response){
-        if(response.status == 200) {
-            users = response.data.filter(function(user) {
-                return user._id != loggedUser._id;
-            });
-            loadUsers();
-        }
+    getAllUsers().then(function(result){
+        users = result.filter(function(user) {
+            return user._id != loggedUser._id;
+        });
+        loadUsers();
     });
-};
+}
 
 function loadUsers() {
+
     var usersContainer = $("#normalUsersContainer");
     var followContainer = $("#followUsersContainer");
     var userTemplate = $(".userTemplate");
@@ -92,18 +49,26 @@ function addUserToHTML(container, tamplate, user, type, isFollowed) {
     newObject.replace("#name", user.username);
     newObject.replace("#btnText", isFollowed ? "unfollow" : "follow");
     newObject.replace("#btnClass", isFollowed ? "btn-danger" : "btn-success");
+    newObject.replace("#follow", !isFollowed);
     newObject.replace("#id", user._id);
 
     container.appendChild(newObject.get(0));
 }
 
-function clickUser(userID) {
+function clickUser(userID, follow) {
     users.filter(function(user){
         return user._id == userID;
     }).map(function (user) {
-        user.follow = !user.follow;
+        changeUserFollowingState(userID, follow);
+
+        if(follow) {
+            loggedUser.following.push(userID);
+        } else {
+            loggedUser.following.splice(loggedUser.following.indexOf(userID), 1);
+        }
+
+        loadUsers();
     });
-    loadUsers();
 }
 
 function changeFilterText() {
