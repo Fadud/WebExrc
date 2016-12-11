@@ -6,9 +6,9 @@ window.addEventListener('load', onPageLode, false);
 function onPageLode() {
     getLoggedUser().then(function(result) {
         loggedUser = result;
-        if(loggedUser != undefined && loggedUser != "") {
-            loadUsersList();
-        }
+        loadUsersList();
+    }).catch(function(result) {
+        window.location = "/signin.html";
     });
 }
 

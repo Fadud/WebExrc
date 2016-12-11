@@ -1,9 +1,9 @@
 function getLoggedUser() {
     return new Promise(function(resolve, reject) {
         axios.get('/login').then(function(response){
-            if(response.status == 200) {
-                resolve(response.data);
-            }
+            resolve(response.data);
+        }).catch(function(response) {
+            reject("no logged user");
         });
     });
 }

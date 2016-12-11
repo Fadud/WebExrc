@@ -1,13 +1,5 @@
 window.addEventListener('load', onPageLoad, false);
 var loggedUser;
-function addTweetToHTML(tweet) {
-    var newTweetElem = $(".tweetTemplate").clone();
-    newTweetElem.removeClass("hidden");
-    newTweetElem.removeClass("tweetTemplate");
-    newTweetElem.replace("#name", tweet.username);
-    newTweetElem.replace("#text", tweet.text);
-    $("#tweetsContainer").appendChild(newTweetElem.get(0));
-}
 
 function publishTweet() {
     let tweetInput = $("#tweetInput");
@@ -27,10 +19,9 @@ function publishTweet() {
 function onPageLoad() {
     getLoggedUser().then(function(result) {
         loggedUser = result;
-        if(loggedUser != undefined && loggedUser != "") {
-            loadFollowersTweets();
-        }
-
+        loadFollowersTweets();
+    }).catch(function(result) {
+        window.location = "/signin.html";
     });
 }
 
@@ -53,6 +44,11 @@ function addNewTweet(text, userId) {
     });
 }
 
-let isUserFollowsId = function (user, userID) {
-    return user.following.indexOf(userID) != -1;
-};
+function addTweetToHTML(tweet) {
+    var newTweetElem = $(".tweetTemplate").clone();
+    newTweetElem.removeClass("hidden");
+    newTweetElem.removeClass("tweetTemplate");
+    newTweetElem.replace("#name", tweet.username);
+    newTweetElem.replace("#text", tweet.text);
+    $("#tweetsContainer").appendChild(newTweetElem.get(0));
+}

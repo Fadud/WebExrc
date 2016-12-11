@@ -65,12 +65,16 @@ function addUsersRoutes(app) {
             req.session.loginUser = user[0];
             res.send(user[0]);
         } else {
-            res.error("No user found");
+            res.status(404).send("No user found");
         }
     });
 
     app.get('/login', function(req, res) {
-        res.send(req.session.loginUser);
+        if(req.session.loginUser != undefined) {
+            res.send(req.session.loginUser);
+        } else {
+            res.status(404).send("No logged user");
+        }
     });
 }
 
