@@ -4,7 +4,7 @@ var OfekQuery = function(objects) {
 
 function $(selector) {
     if(selector == undefined || selector == null || selector == "")
-        return;
+        return null;
 
     function addCollection(collection, colToAdd) {
         for(element of colToAdd) {
@@ -35,6 +35,8 @@ function $(selector) {
             result = newResult;
         }
     }
+    if(result.length == 0 || (result.length == 1 && result[0] == null))
+        return null;
 
     return new OfekQuery(result);
 }
@@ -162,6 +164,10 @@ OfekQuery.prototype.empty = function() {
     this.each(function(obj){
        obj.innerHTML = "";
     });
+};
+
+OfekQuery.prototype.getAll = function() {
+    return this.objects;
 };
 
 function checkObject(object, tests) {
